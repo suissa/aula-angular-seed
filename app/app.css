@@ -28,3 +28,16 @@
   content: "";
   padding: 0;
 }
+
+table tr td,
+table tr th
+{
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+table tr th {
+  border: 1px solid #fff;
+  border-bottom: 1px solid #000;
+}
+
+
