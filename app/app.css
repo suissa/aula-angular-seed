@@ -1,5 +1,9 @@
 /* app css stylesheet */
 
+body {
+  width: 600px;
+  margin: 0 auto;
+}
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -34,6 +38,7 @@ table tr th
 {
   border: 1px solid #000;
   border-collapse: collapse;
+  padding: 1em;
 }
 table tr th {
   border: 1px solid #fff;

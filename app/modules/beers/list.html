@@ -13,7 +13,9 @@
   </thead>
   <tbody>
     <tr data-ng-repeat='beer in beers'>
-      <td>{{ beer.name }}</td>
+      <td>
+        <a href="#/beers/{{ beer._id }}">{{ beer.name }}</a>
+      </td>
       <td>{{ beer.price }}</td>
     </tr>
   </tbody>

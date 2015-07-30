@@ -3,7 +3,9 @@
 angular.module('myApp.Beers', ['ngRoute'])
 .config(['$routeProvider', beersConfig])
 .controller('BeerListController', BeerListController)
-.controller('BeerCreateController', BeerCreateController);
+.controller('BeerCreateController', BeerCreateController)
+.controller('BeerGetController', BeerGetController)
+;
 
 // Config
 function beersConfig($routeProvider){
@@ -15,6 +17,10 @@ function beersConfig($routeProvider){
     .when('/beers/create', {
       templateUrl: 'modules/beers/create.html',
       controller: 'BeerCreateController'
+    })
+    .when('/beers/:id', {
+      templateUrl: 'modules/beers/get.html',
+      controller: 'BeerGetController'
     })
     ;
 }
@@ -37,6 +43,27 @@ function BeerListController($scope, $http) {
   .error(function(err) {
     console.log('ERRO: ', err);
     $scope.msg = 'Listagem não podde ser feita.';
+
+  });
+
+};
+
+function BeerGetController($scope, $http, $routeParams) {
+  var httpRequest = {
+        url: 'http://localhost:3000/api/beers/' + $routeParams.id
+      , method: 'GET'
+      }
+    ;
+
+  $http(httpRequest)
+  .success(function(data) {
+    console.log('SUCESSO: ', data);
+    $scope.beer = data;
+    $scope.msg = 'Consulta feita com sucesso.';
+  })
+  .error(function(err) {
+    console.log('ERRO: ', err);
+    $scope.msg = 'Consulta não podde ser feita.';
 
   });
 
@@ -69,6 +96,7 @@ function BeerCreateController($scope, $http) {
 
 BeerListController.$inject = ['$scope', '$http'];
 BeerCreateController.$inject = ['$scope', '$http'];
+BeerGetController.$inject = ['$scope', '$http', '$routeParams'];
 
 
 
