@@ -7,10 +7,16 @@ angular.module('myApp.Beers', ['ngRoute'])
 
 // Config
 function beersConfig($routeProvider){
-  $routeProvider.when('/beers', {
+  $routeProvider
+    .when('/beers', {
       templateUrl: 'modules/beers/list.html',
       controller: 'BeerListController'
-    });
+    })
+    .when('/beers/create', {
+      templateUrl: 'modules/beers/create.html',
+      controller: 'BeerCreateController'
+    })
+    ;
 }
 beersConfig['$inject'] = ['$routeProvider'];
 
@@ -37,23 +43,27 @@ function BeerListController($scope, $http) {
 };
 
 function BeerCreateController($scope, $http) {
-  var httpRequest = {
-        url: 'http://localhost:3000/api/beers'
-      , method: 'POST'
-      }
-    ;
 
-  $http(httpRequest)
-  .success(function(data) {
-    console.log('SUCESSO: ', data);
-    // $scope.beers = data;
-    $scope.msg = 'Cadastro da cerveja feito com sucesso.';
-  })
-  .error(function(err) {
-    console.log('ERRO: ', err);
-    $scope.msg = 'Cadastro da cerveja não pode ser feito.';
+  $scope.create = function(beer) {
+    var httpRequest = {
+          url: 'http://localhost:3000/api/beers'
+        , method: 'POST'
+        , data: beer
+        }
+      ;
 
-  });
+    $http(httpRequest)
+    .success(function(data) {
+      console.log('SUCESSO: ', data);
+      // $scope.beers = data;
+      $scope.msg = 'Cadastro da cerveja feito com sucesso.';
+    })
+    .error(function(err) {
+      console.log('ERRO: ', err);
+      $scope.msg = 'Cadastro da cerveja não pode ser feito.';
+
+    });
+  }
 
 };
 
