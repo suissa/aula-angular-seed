@@ -50,6 +50,31 @@ function BeerListController($scope, $http) {
     $scope.msg = 'Listagem não podde ser feita.';
 
   });
+
+  $scope.remove = function(beer) {
+    var httpRequest = {
+          url: 'http://localhost:3000/api/beers/' + beer._id
+        , method: 'DELETE'
+        }
+      ;
+
+    if(confirm('Deseja mesmo remover essa cerveja?')){
+      $http(httpRequest)
+      .success(function(data) {
+        console.log('SUCESSO: ', data);
+        var index = $scope.beers.indexOf(beer);
+        $scope.beers.splice(index, 1);
+        $scope.msg = 'Remoção feita com sucesso.';
+      })
+      .error(function(err) {
+        console.log('ERRO: ', err);
+        $scope.msg = 'Remoção não podde ser feita.';
+      });
+    }
+    else {
+      alert('UFA! Ainda bem!');
+    }
+  }
 };
 
 function BeerGetController($scope, $http, $routeParams) {

@@ -9,6 +9,7 @@
     <tr>
       <th>Name</th>
       <th>Price</th>
+      <th>Remove</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,9 @@
         <a href="#/beers/{{ beer._id }}">{{ beer.name }}</a>
       </td>
       <td>{{ beer.price }}</td>
+      <td>
+        <a data-ng-click="remove(beer)">X</a>
+      </td>
     </tr>
   </tbody>
 </table>
