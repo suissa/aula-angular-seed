@@ -5,17 +5,36 @@ angular.module('myApp.Beers.Controllers', [])
 .controller('BeerCreateController', BeerCreateController)
 .controller('BeerGetController', BeerGetController)
 .controller('BeerEditController', BeerEditController)
+.service('BeerService', BeerService)
 ;
 
-// Controllers
-function BeerListController($scope, $http) {
+// Service
+function BeerService($http) {
   var httpRequest = {
         url: 'http://localhost:3000/api/beers'
       , method: 'GET'
       }
     ;
 
-  $http(httpRequest)
+  this.list = function(){
+    return $http(httpRequest);
+  }
+
+};
+
+// Injeção de dependências
+BeerListController.$inject = ['$http'];
+
+// Controllers
+function BeerListController($scope, BeerService) {
+  var httpRequest = {
+        url: 'http://localhost:3000/api/beers'
+      , method: 'GET'
+      }
+    ;
+
+  BeerService
+  .list()
   .success(function(data) {
     console.log('SUCESSO: ', data);
     $scope.beers = data;
@@ -24,7 +43,6 @@ function BeerListController($scope, $http) {
   .error(function(err) {
     console.log('ERRO: ', err);
     $scope.msg = 'Listagem não podde ser feita.';
-
   });
 
   $scope.remove = function(beer) {
@@ -137,7 +155,7 @@ function BeerEditController($scope, $http, $routeParams) {
 };
 
 // Injeção de dependências
-BeerListController.$inject = ['$scope', '$http'];
+BeerListController.$inject = ['$scope', 'BeerService'];
 BeerCreateController.$inject = ['$scope', '$http'];
 BeerGetController.$inject = ['$scope', '$http', '$routeParams'];
 BeerEditController.$inject = ['$scope', '$http', '$routeParams'];

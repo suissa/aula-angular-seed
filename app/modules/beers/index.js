@@ -1,25 +1,29 @@
 'use strict';
 
-angular.module('myApp.Beers', ['ngRoute', 'myApp.Beers.Controllers'])
+angular.module('myApp.Beers', [
+  'ngRoute'
+, 'myApp.Beers.Controllers'
+// , 'myApp.Beers.Service'
+])
 .config(['$routeProvider', beersConfig]);
 
 // Config
 function beersConfig($routeProvider){
   $routeProvider
     .when('/beers', {
-      templateUrl: 'modules/beers/list.html',
+      templateUrl: 'modules/beers/views/list.html',
       controller: 'BeerListController'
     })
     .when('/beers/create', {
-      templateUrl: 'modules/beers/create.html',
+      templateUrl: 'modules/beers/views/create.html',
       controller: 'BeerCreateController'
     })
     .when('/beers/:id', {
-      templateUrl: 'modules/beers/get.html',
+      templateUrl: 'modules/beers/views/get.html',
       controller: 'BeerGetController'
     })
     .when('/beers/:id/edit', {
-      templateUrl: 'modules/beers/edit.html',
+      templateUrl: 'modules/beers/views/edit.html',
       controller: 'BeerEditController'
     })
     ;
