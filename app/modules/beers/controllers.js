@@ -20,6 +20,14 @@ function BeerService($http) {
     return $http(httpRequest);
   }
 
+  this.remove = function(beer){
+    var httpRequest = {
+          url: 'http://localhost:3000/api/beers/' + beer._id
+        , method: 'DELETE'
+        }
+      ;
+      return $http(httpRequest);
+    }
 };
 
 // Injeção de dependências
@@ -46,14 +54,9 @@ function BeerListController($scope, BeerService) {
   });
 
   $scope.remove = function(beer) {
-    var httpRequest = {
-          url: 'http://localhost:3000/api/beers/' + beer._id
-        , method: 'DELETE'
-        }
-      ;
-
     if(confirm('Deseja mesmo remover essa cerveja?')){
-      $http(httpRequest)
+      BeerService
+      .remove(beer)
       .success(function(data) {
         console.log('SUCESSO: ', data);
         var index = $scope.beers.indexOf(beer);
