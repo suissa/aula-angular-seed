@@ -45,4 +45,8 @@ table tr th {
   border-bottom: 1px solid #000;
 }
 
+.form-label-text {
+  width: 100px;
+  display: inline-block;
+}
 
