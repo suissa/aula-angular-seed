@@ -26,8 +26,35 @@ function BeerService($http) {
         , method: 'DELETE'
         }
       ;
-      return $http(httpRequest);
+    return $http(httpRequest);
+  }
+
+  this.get = function(id){
+    var httpRequest = {
+          url: 'http://localhost:3000/api/beers/' + id
+        , method: 'GET'
+        }
+      ;
+    return $http(httpRequest);
+  }
+
+  this.create = function(beer) {
+    var httpRequest = {
+          url: 'http://localhost:3000/api/beers'
+        , method: 'POST'
+        , data: beer
+        }
+      ;
+    return $http(httpRequest);
+  }
+
+  this.edit = function() {
+    var httpRequest = {
+      url: 'http://localhost:3000/api/beers/' + $routeParams.id
+    , method: 'PUT'
     }
+    return $http(httpRequest);
+  }
 };
 
 // Injeção de dependências
@@ -75,6 +102,7 @@ function BeerListController($scope, BeerService) {
 };
 
 function BeerGetController($scope, $http, $routeParams) {
+
   var httpRequest = {
         url: 'http://localhost:3000/api/beers/' + $routeParams.id
       , method: 'GET'
@@ -96,12 +124,6 @@ function BeerGetController($scope, $http, $routeParams) {
 
 function BeerCreateController($scope, $http) {
   $scope.create = function(beer) {
-    var httpRequest = {
-          url: 'http://localhost:3000/api/beers'
-        , method: 'POST'
-        , data: beer
-        }
-      ;
 
     $http(httpRequest)
     .success(function(data) {
@@ -118,11 +140,6 @@ function BeerCreateController($scope, $http) {
 };
 
 function BeerEditController($scope, $http, $routeParams) {
-  var httpRequest = {
-        url: 'http://localhost:3000/api/beers/' + $routeParams.id
-      , method: 'GET'
-      }
-    ;
 
   $http(httpRequest)
   .success(function(data) {
